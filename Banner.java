@@ -1,26 +1,18 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Banner {
 
-    static class CharacterPattern {
-        private char character;
-        private String[] pattern;
-
-        public CharacterPattern(char character, String[] pattern) {
-            this.character = character;
-            this.pattern = pattern;
-        }
-
-        public char getCharacter() {
-            return character;
-        }
-
-        public String[] getPattern() {
-            return pattern;
-        }
+    public static void main(String[] args) {
+        Map<Character, String[]> map = createPatternMap();
+        printBanner("OOPS", map);
     }
 
-    public static void main(String[] args) {
+    static Map<Character, String[]> createPatternMap() {
 
-        CharacterPattern o = new CharacterPattern('O', new String[]{
+        Map<Character, String[]> map = new HashMap<>();
+
+        map.put('O', new String[]{
                 " ***** ",
                 "*     *",
                 "*     *",
@@ -30,7 +22,7 @@ public class Banner {
                 " ***** "
         });
 
-        CharacterPattern p = new CharacterPattern('P', new String[]{
+        map.put('P', new String[]{
                 "****** ",
                 "*     *",
                 "*     *",
@@ -40,7 +32,7 @@ public class Banner {
                 "*      "
         });
 
-        CharacterPattern s = new CharacterPattern('S', new String[]{
+        map.put('S', new String[]{
                 " ***** ",
                 "*      ",
                 "*      ",
@@ -50,19 +42,16 @@ public class Banner {
                 " ***** "
         });
 
-        CharacterPattern[] patterns = {o, p, s};
+        return map;
+    }
 
-        String word = "OOPS";
+    static void printBanner(String word, Map<Character, String[]> map) {
 
         for (int i = 0; i < 7; i++) {
             StringBuilder line = new StringBuilder();
 
             for (char c : word.toCharArray()) {
-                for (CharacterPattern cp : patterns) {
-                    if (cp.getCharacter() == c) {
-                        line.append(cp.getPattern()[i]).append(" ");
-                    }
-                }
+                line.append(map.get(c)[i]).append(" ");
             }
 
             System.out.println(line);
