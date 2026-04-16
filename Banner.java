@@ -1,25 +1,26 @@
 public class Banner {
 
-    public static void main(String[] args) {
+    static class CharacterPattern {
+        private char character;
+        private String[] pattern;
 
-        String[] o = getOPattern();
-        String[] p = getPPattern();
-        String[] s = getSPattern();
+        public CharacterPattern(char character, String[] pattern) {
+            this.character = character;
+            this.pattern = pattern;
+        }
 
-        String word = "OOPS";
+        public char getCharacter() {
+            return character;
+        }
 
-        for (int i = 0; i < 7; i++) {
-            for (char c : word.toCharArray()) {
-                if (c == 'O') System.out.print(o[i] + " ");
-                else if (c == 'P') System.out.print(p[i] + " ");
-                else if (c == 'S') System.out.print(s[i] + " ");
-            }
-            System.out.println();
+        public String[] getPattern() {
+            return pattern;
         }
     }
 
-    static String[] getOPattern() {
-        return new String[]{
+    public static void main(String[] args) {
+
+        CharacterPattern o = new CharacterPattern('O', new String[]{
                 " ***** ",
                 "*     *",
                 "*     *",
@@ -27,11 +28,9 @@ public class Banner {
                 "*     *",
                 "*     *",
                 " ***** "
-        };
-    }
+        });
 
-    static String[] getPPattern() {
-        return new String[]{
+        CharacterPattern p = new CharacterPattern('P', new String[]{
                 "****** ",
                 "*     *",
                 "*     *",
@@ -39,11 +38,9 @@ public class Banner {
                 "*      ",
                 "*      ",
                 "*      "
-        };
-    }
+        });
 
-    static String[] getSPattern() {
-        return new String[]{
+        CharacterPattern s = new CharacterPattern('S', new String[]{
                 " ***** ",
                 "*      ",
                 "*      ",
@@ -51,6 +48,24 @@ public class Banner {
                 "      *",
                 "      *",
                 " ***** "
-        };
+        });
+
+        CharacterPattern[] patterns = {o, p, s};
+
+        String word = "OOPS";
+
+        for (int i = 0; i < 7; i++) {
+            StringBuilder line = new StringBuilder();
+
+            for (char c : word.toCharArray()) {
+                for (CharacterPattern cp : patterns) {
+                    if (cp.getCharacter() == c) {
+                        line.append(cp.getPattern()[i]).append(" ");
+                    }
+                }
+            }
+
+            System.out.println(line);
+        }
     }
 }
